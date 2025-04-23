@@ -11,3 +11,6 @@ Delete    - Excluir/Remover
 A atividade deverá ser implementada em Java com SpringBoot
 A entidade deverá ter pelo menos 7 atributos: dos tipos Long, String, LocalDate, Boolean
 Deve ter pelo menos duas validações (preferencialmente nas operações de Create e Update).
+
+## Testes com swagger
+http://localhost:8080/swagger-ui/index.html
