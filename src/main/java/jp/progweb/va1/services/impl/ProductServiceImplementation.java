@@ -1,5 +1,6 @@
 package jp.progweb.va1.services.impl;
 
+import jp.progweb.va1.dtos.ProductCreateDTO;
 import jp.progweb.va1.dtos.ProductUpdateDTO;
 import jp.progweb.va1.models.Product;
 import jp.progweb.va1.repositories.ProductRepository;
@@ -18,13 +19,20 @@ public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product create(Product product) {
-        Boolean productExists = productExists(product.getId());
-        if (productExists) {
-            throw new ProductAlreadyExistsException(product.getId());
+    public Product create(ProductCreateDTO product) {
+        boolean existingProduct = productRepository.existsByName(product.getName());
+
+        if (existingProduct) {
+            throw new ProductAlreadyExistsException(product.getName());
         }
 
-        return productRepository.save(product);
+        Product newProduct = new Product();
+        newProduct.setName(product.getName());
+        newProduct.setCreatedAt(LocalDateTime.now());
+        newProduct.setCreatedBy(product.getCreatedBy());
+        newProduct.setActive(product.getActive());
+
+        return productRepository.save(newProduct);
     }
 
     @Override
@@ -39,7 +47,7 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public Product update(Long id, ProductUpdateDTO product) {
-        Boolean productExists = productExists(id);
+        Boolean productExists = productExistsById(id);
         if (!productExists) {
             throw new ProductNotFoundException(id);
         }
@@ -55,14 +63,14 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public void delete(Long id) {
-        if(!productExists(id)) {
+        if(!productExistsById(id)) {
             throw new ProductNotFoundException(id);
         }
 
         productRepository.deleteById(id);
     }
 
-    Boolean productExists(Long id) {
+    Boolean productExistsById(Long id) {
         Product product = findById(id);
         return product != null;
     }
