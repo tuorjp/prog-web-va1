@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +43,12 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isEmpty()) {
+            throw new ProductNotFoundException(id);
+        }
+
+        return product.get();
     }
 
     @Override
