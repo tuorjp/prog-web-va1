@@ -6,6 +6,6 @@ public class ProductAlreadyExistsException extends RuntimeException{
     }
 
     public ProductAlreadyExistsException(String message) {
-        super(message);
+        super("Product: " + message + " already exists");
     }
 }
