@@ -11,4 +11,5 @@ public class ProductCreateDTO {
     private Boolean active;
     private LocalDateTime createdAt;
     private String createdBy;
+    private Float price;
 }

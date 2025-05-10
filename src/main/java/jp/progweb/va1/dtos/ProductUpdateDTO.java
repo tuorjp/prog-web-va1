@@ -10,4 +10,5 @@ public class ProductUpdateDTO {
     private Boolean active;
     private LocalDateTime updatedAt;
     private String updatedBy;
+    private Float price;
 }

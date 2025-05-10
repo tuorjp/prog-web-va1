@@ -34,4 +34,7 @@ public class Product {
 
     @Column(name = "updated_by")
     private String updatedBy;
+
+    @Column(name = "price", nullable = false)
+    private Float price;
 }

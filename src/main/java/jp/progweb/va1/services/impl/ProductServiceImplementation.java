@@ -32,6 +32,7 @@ public class ProductServiceImplementation implements ProductService {
         newProduct.setCreatedAt(LocalDateTime.now());
         newProduct.setCreatedBy(product.getCreatedBy());
         newProduct.setActive(product.getActive());
+        newProduct.setPrice(product.getPrice());
 
         return productRepository.save(newProduct);
     }
@@ -63,6 +64,7 @@ public class ProductServiceImplementation implements ProductService {
         existingProduct.setUpdatedAt(LocalDateTime.now());
         existingProduct.setActive(product.getActive());
         existingProduct.setUpdatedBy(product.getUpdatedBy());
+        existingProduct.setPrice(product.getPrice());
 
         return productRepository.save(existingProduct);
     }
