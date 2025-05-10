@@ -1,6 +1,5 @@
 package jp.progweb.va1.dtos;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.time.LocalDateTime;
