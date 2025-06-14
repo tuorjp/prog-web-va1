@@ -29,8 +29,7 @@ public class ProductServiceImplementation implements ProductService {
 
         Product newProduct = new Product();
         newProduct.setName(product.getName());
-        newProduct.setCreatedAt(LocalDateTime.now());
-        newProduct.setCreatedBy(product.getCreatedBy());
+        newProduct.setCreatedBy("USUARIO");
         newProduct.setActive(product.getActive());
         newProduct.setPrice(product.getPrice());
 
