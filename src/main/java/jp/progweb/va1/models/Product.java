@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -23,14 +25,22 @@ public class Product {
     @Column
     private Boolean active;
 
-    @Column(name = "created_at", nullable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+//    @Column(name = "created_at", nullable = false)
+//    private LocalDateTime createdAt;
 
     @Column(name = "created_by", nullable = false)
     private String createdBy;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+//
+//    @Column(name = "updated_at")
+//    private LocalDateTime updatedAt;
 
     @Column(name = "updated_by")
     private String updatedBy;
