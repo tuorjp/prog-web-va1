@@ -1,6 +1,7 @@
 package jp.progweb.va1.controllers;
 
 import jp.progweb.va1.dtos.ProductCreateDTO;
+import jp.progweb.va1.dtos.ProductStatusUpdateDTO;
 import jp.progweb.va1.dtos.ProductUpdateDTO;
 import jp.progweb.va1.models.Product;
 import jp.progweb.va1.services.ProductService;
@@ -43,6 +44,15 @@ public class ProductController {
     ) {
         Product updatedProduct = productService.update(id, productUpdateDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Product> updateProductStatus(
+            @PathVariable Long id,
+            @RequestBody ProductStatusUpdateDTO statusUpdateDTO
+    ) {
+        Product updatedProduct = productService.updateStatus(id, statusUpdateDTO.getActive());
+        return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping("/{id}")
