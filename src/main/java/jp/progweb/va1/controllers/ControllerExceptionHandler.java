@@ -1,5 +1,6 @@
 package jp.progweb.va1.controllers;
 
+import jp.progweb.va1.services.exceptions.InvalidProductStatus;
 import jp.progweb.va1.services.exceptions.ProductAlreadyExistsException;
 import jp.progweb.va1.services.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,10 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<String> handleProductNotFound(ProductNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidProductStatus.class)
+    public ResponseEntity<String> handleInvalidProductStatus(InvalidProductStatus e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
