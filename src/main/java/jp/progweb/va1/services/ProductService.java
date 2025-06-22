@@ -12,4 +12,5 @@ public interface ProductService {
     Product findById(Long id);
     Product update(Long id, ProductUpdateDTO product);
     void delete(Long id);
+    Product updateStatus(Long id, Boolean active);
 }

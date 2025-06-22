@@ -5,6 +5,7 @@ import jp.progweb.va1.dtos.ProductUpdateDTO;
 import jp.progweb.va1.models.Product;
 import jp.progweb.va1.repositories.ProductRepository;
 import jp.progweb.va1.services.ProductService;
+import jp.progweb.va1.services.exceptions.InvalidProductStatus;
 import jp.progweb.va1.services.exceptions.ProductAlreadyExistsException;
 import jp.progweb.va1.services.exceptions.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -75,6 +76,24 @@ public class ProductServiceImplementation implements ProductService {
         }
 
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Product updateStatus(Long id, Boolean active) {
+        if(id == null) {
+            throw new ProductNotFoundException(id);
+        } else if (active == null) {
+            throw new InvalidProductStatus("Invalid active status");
+        }
+
+        Product productToUpdate = findById(id);
+
+        productToUpdate.setActive(active);
+
+        productToUpdate.setUpdatedAt(LocalDateTime.now());
+        productToUpdate.setUpdatedBy("USUARIO_SISTEMA");
+
+        return productRepository.save(productToUpdate);
     }
 
     Boolean productExistsById(Long id) {
