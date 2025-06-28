@@ -1,5 +1,7 @@
 package jp.progweb.va1.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jp.progweb.va1.dtos.ProductCreateDTO;
 import jp.progweb.va1.dtos.ProductStatusUpdateDTO;
 import jp.progweb.va1.dtos.ProductUpdateDTO;
@@ -20,6 +22,16 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
+    @Operation(
+            description = "Método de listagem de produtos",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "SUCCESS",
+                            useReturnTypeSchema = true
+                    )
+            }
+    )
     public ResponseEntity<List<Product>> listAllProducts() {
         List<Product> products = productService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(products);
